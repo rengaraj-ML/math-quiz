@@ -21,6 +21,7 @@ const MathQuestionSchema = z.object({
   options: z.tuple([z.string(), z.string(), z.string(), z.string()]),
   correctIndex: z.number().min(0).max(3),
   explanation: z.string(),
+  image: z.string().optional(), // URL or base64 data URL for diagrams
 });
 
 const DisplayMathQuizInputSchema = z.object({
@@ -52,7 +53,8 @@ When the user asks for a math quiz (e.g., "Give my son 10 6th grade math questio
 - question: string (the math problem)
 - options: array of exactly 4 strings (A, B, C, D choices)
 - correctIndex: number 0-3 (which option is correct)
-- explanation: string (brief explanation of the correct answer)`,
+- explanation: string (brief explanation of the correct answer)
+- image: string (optional) – URL or base64 data URL for diagrams. Use this for geometry (perimeter, area, triangles, etc.) so students see the shape. Generate or include an image when the problem needs a visual.`,
       inputSchema: {
         questions: z.array(
           z.object({
@@ -61,6 +63,7 @@ When the user asks for a math quiz (e.g., "Give my son 10 6th grade math questio
             options: z.tuple([z.string(), z.string(), z.string(), z.string()]),
             correctIndex: z.number().min(0).max(3),
             explanation: z.string(),
+            image: z.string().optional(),
           })
         ),
       },
